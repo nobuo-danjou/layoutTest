@@ -25,6 +25,12 @@ class ViewController: UITableViewController {
         ["test test test", "foobar foobar foobar foobar foobar foobar"],
         ["test test test", "foobar foobar foobar foobar foobar foobar foobar"],
     ]
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.register(UINib(nibName: "MyCell", bundle: nil), forCellReuseIdentifier: "MyCell")
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         1
@@ -35,6 +41,15 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let row = array[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell") as! MyCell
+        cell.title = row[0]
+        cell.detail = row[1]
+        return cell
+    }
+/*
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         // cell.accessoryType = .disclosureIndicator
         
@@ -86,6 +101,7 @@ class ViewController: UITableViewController {
         }
         return cell
     }
+ */
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         tableView.reloadData()
